@@ -1,5 +1,6 @@
 package Simulator;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,10 +33,14 @@ public class Simulator {
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
 
+    private static final double GOPHER_CREATION_PROBABILITY = 0.08;
+
     // Lists of animals in the field. Separate lists are kept for ease of
     // iteration.
     private ArrayList<Rabbit> rabbitList;
     private ArrayList<Fox> foxList;
+
+    private ArrayList<Gopher> gopherList;
 
     // The current state of the field.
     private Field field;
@@ -81,6 +86,7 @@ public class Simulator {
 
         rabbitList = new ArrayList<Rabbit>();
         foxList = new ArrayList<Fox>();
+        gopherList = new ArrayList<Gopher>();
         field = new Field(width, height);
         updatedField = new Field(width, height);
         stats = new FieldStats();
@@ -96,15 +102,17 @@ public class Simulator {
         view = new FieldDisplay(p, this.field, VIEW_EDGE_BUFFER, VIEW_EDGE_BUFFER, p.width - 2*VIEW_EDGE_BUFFER, p.height / 2 - 2 * VIEW_EDGE_BUFFER);
         view.setColor(Rabbit.class, p.color(155, 155, 155));
         view.setColor(Fox.class, p.color(200, 0, 255));
+        view.setColor(Gopher.class, p.color(255, 102, 102));
 
         graph = new Graph(p, view.getLeftEdge(), view.getBottomEdge()+VIEW_EDGE_BUFFER, view.getRightEdge(), p.height-VIEW_EDGE_BUFFER, 0,
                 0, 500, field.getHeight() * field.getWidth());
 
-        graph.title = "Animals.Fox and Animals.Rabbit Populations";
+        graph.title = "Animals Populations of Foxes (Blue), Rabbits (Grey), Gophers (Red)";
         graph.xlabel = "Time";
         graph.ylabel = "Pop.\t\t";
         graph.setColor(Rabbit.class, p.color(155, 155, 155));
         graph.setColor(Fox.class, p.color(200, 0, 255));
+        graph.setColor(Gopher.class, p.color(255, 102, 102));
     }
 
     /**
@@ -166,6 +174,18 @@ public class Simulator {
         // Add new born foxList to the main list of foxList.
         foxList.addAll(babyFoxStorage);
 
+        ArrayList<Gopher> babyGopherStorage = new ArrayList<Gopher>();
+
+        for (int i = 0; i < gopherList.size(); i++) {
+            Gopher gopher = gopherList.get(i);
+            gopher.run(updatedField, babyGopherStorage);
+            if (!gopher.isAlive()) {
+                gopherList.remove(i);
+                i--;
+            }
+        }
+        gopherList.addAll(babyGopherStorage);
+
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
         field = updatedField;
@@ -190,6 +210,7 @@ public class Simulator {
         step = 0;
         rabbitList.clear();
         foxList.clear();
+        gopherList.clear();
         field.clear();
         updatedField.clear();
         initializeBoard(field);
@@ -223,11 +244,17 @@ public class Simulator {
                     rabbit.setLocation(row, col);
                     rabbitList.add(rabbit);
                     field.put(rabbit, row, col);
+                } else if (rand.nextDouble() <= GOPHER_CREATION_PROBABILITY) {
+                    Gopher gopher = new Gopher(true);
+                    gopher.setLocation(row, col);
+                    gopherList.add(gopher);
+                    field.put(gopher, row, col);
                 }
             }
         }
         Collections.shuffle(rabbitList);
         Collections.shuffle(foxList);
+        Collections.shuffle(gopherList);
     }
 
     /**
@@ -272,6 +299,8 @@ public class Simulator {
                         rabbitList.remove((Rabbit) animal);
                     if (animal instanceof Fox)
                         foxList.remove((Fox) animal);
+                    if (animal instanceof Gopher)
+                        gopherList.remove((Gopher) animal);
                     field.put(null, locToCheck);
                     updatedField.put(null, locToCheck);
                 }

@@ -1,50 +1,26 @@
 package Animals;
 
-import Animals.*;
-import Field.*;
-import Graph.*;
-import java.io.Serializable;
+import Field.Field;
+import Field.Location;
+
 import java.util.List;
 
-/**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
- * 
- * @author David J. Barnes and Michael Kolling.  Modified by David Dobervich 2007-2022
- */
-public class Rabbit {
-    // ----------------------------------------------------
-    // Characteristics shared by all rabbits (static fields).
-    // ----------------------------------------------------
-	private static int BREEDING_AGE = 2;
-	
-    // The age to which all rabbits can live.
-    private static int MAX_AGE = 29;
-    
-    // The likelihood of a rabbit breeding.
-    private static double BREEDING_PROBABILITY = 0.0795;
-    // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 5;
+public class Gopher {
+    private static int BREEDING_AGE = 2;
 
-    // -----------------------------------------------------
-    // Individual characteristics (attributes).
-    // -----------------------------------------------------
-    // The rabbit's age.
+    private static int MAX_AGE = 35;
+
+    private static double BREEDING_PROBABILITY = 0.089;
+
+    private static int MAX_LITTER_SIZE = 13;
+
     private int age;
-    
-    // Whether the rabbit is alive or not.
+
     private boolean alive;
-    
-    // The rabbit's position
+
     private Location location;
 
-    /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
-     * 
-     * @param startWithRandomAge If true, the rabbit will have a random age.
-     */
-    public Rabbit(boolean startWithRandomAge)
+    public Gopher(boolean startWithRandomAge)
     {
         age = 0;
         alive = true;
@@ -52,24 +28,25 @@ public class Rabbit {
             age = (int)(Math.random()*MAX_AGE);
         }
     }
-    
+
     /**
-     * This is what the rabbit does most of the time - it runs 
+     * This is what the rabbit does most of the time - it runs
      * around. Sometimes it will breed or die of old age.
      * @param updatedField The field to transfer to.
-     * @param babyRabbitStorage A list to add newly born rabbits to.
+     * @param babyGopherStorage A list to add newly born rabbits to.
      */
-    public void run(Field updatedField, List<Rabbit> babyRabbitStorage)
+
+    public void run(Field updatedField, List<Gopher> babyGopherStorage)
     {
         incrementAge();
         if(alive) {
             int births = breed();
             for(int b = 0; b < births; b++) {
-                Rabbit newRabbit = new Rabbit(false);
-                babyRabbitStorage.add(newRabbit);
+                Gopher newGopher = new Gopher(false);
+                babyGopherStorage.add(newGopher);
                 Location loc = updatedField.randomAdjacentLocation(location);
-                newRabbit.setLocation(loc);
-                updatedField.put(newRabbit, loc);
+                newGopher.setLocation(loc);
+                updatedField.put(newGopher, loc);
             }
             Location newLocation = updatedField.freeAdjacentLocation(location);
             // Only transfer to the updated field if there was a free location
@@ -83,11 +60,7 @@ public class Rabbit {
             }
         }
     }
-    
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
+
     private void incrementAge()
     {
         age++;
@@ -95,12 +68,6 @@ public class Rabbit {
             alive = false;
         }
     }
-    
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
     private int breed()
     {
         int births = 0;
@@ -109,7 +76,6 @@ public class Rabbit {
         }
         return births;
     }
-
     /**
      * A rabbit can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.
@@ -118,7 +84,7 @@ public class Rabbit {
     {
         return age >= BREEDING_AGE;
     }
-    
+
     /**
      * Check whether the rabbit is alive or not.
      * @return true if the rabbit is still alive.
@@ -135,7 +101,7 @@ public class Rabbit {
     {
         alive = false;
     }
-    
+
     /**
      * Set the animal's location.
      * @param row The vertical coordinate of the location.
