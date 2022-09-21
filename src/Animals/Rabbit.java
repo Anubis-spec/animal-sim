@@ -12,27 +12,9 @@ import java.util.List;
  * 
  * @author David J. Barnes and Michael Kolling.  Modified by David Dobervich 2007-2022
  */
-public class Rabbit {
-    // ----------------------------------------------------
-    // Characteristics shared by all rabbits (static fields).
-    // ----------------------------------------------------
-	private static int BREEDING_AGE = 2;
-	
-    // The age to which all rabbits can live.
-    private static int MAX_AGE = 29;
-    
-    // The likelihood of a rabbit breeding.
-    private static double BREEDING_PROBABILITY = 0.0795;
-    // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 5;
-
-    // -----------------------------------------------------
-    // Individual characteristics (attributes).
-    // -----------------------------------------------------
-    // The rabbit's age.
+public class Rabbit extends Animal{
     private int age;
-    
-    // Whether the rabbit is alive or not.
+
     private boolean alive;
     
     // The rabbit's position
@@ -46,6 +28,16 @@ public class Rabbit {
      */
     public Rabbit(boolean startWithRandomAge)
     {
+        super(startWithRandomAge);
+        BREEDING_AGE = 2;
+
+        // The age to which all rabbits can live.
+        MAX_AGE = 29;
+
+        // The likelihood of a rabbit breeding.
+        BREEDING_PROBABILITY = 0.0795;
+        // The maximum number of births.
+        MAX_LITTER_SIZE = 5;
         age = 0;
         alive = true;
         if(startWithRandomAge) {

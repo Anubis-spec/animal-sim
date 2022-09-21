@@ -12,22 +12,10 @@ import java.util.List;
  * 
  * @author David J. Barnes and Michael Kolling.  Modified by David Dobervich 2007-2022
  */
-public class Fox {
+public class Fox extends Animal{
 	// ----------------------------------------------------
 	// Characteristics shared by all foxes (static fields).
 	// ----------------------------------------------------
-	private static int BREEDING_AGE = 15;
-	// The age to which a fox can live.
-	private static int MAX_AGE = 60;
-	// The likelihood of a fox breeding.
-	private static double BREEDING_PROBABILITY = 0.19;
-	// The maximum number of births.
-	private static int MAX_LITTER_SIZE = 3;
-	// The food value of a single rabbit. In effect, this is the
-	// number of steps a fox can go before it has to eat again.
-	private static int RABBIT_FOOD_VALUE = 4;
-
-	private static int GOPHER_FOOD_VALUE = 6;
 	// A shared random number generator to control breeding.
 
 	// -----------------------------------------------------
@@ -50,13 +38,25 @@ public class Fox {
 	 *            If true, the fox will have random age and hunger level.
 	 */
 	public Fox(boolean startWithRandomAge) {
+		super(startWithRandomAge);
+
+		BREEDING_AGE = 15;
+
+		MAX_AGE = 60;
+
+		BREEDING_PROBABILITY = 0.19;
+
+		MAX_LITTER_SIZE = 3;
+
+		RABBIT_FOOD_VALUE = 4;
+
+		GOPHER_FOOD_VALUE = 6;
 		age = 0;
 		alive = true;
 		if (startWithRandomAge) {
 			age = (int)(Math.random()*MAX_AGE);
 			foodLevel = (int)(Math.random()*RABBIT_FOOD_VALUE);
 		} else {
-			// leave age at 0
 			foodLevel = RABBIT_FOOD_VALUE;
 		}
 	}

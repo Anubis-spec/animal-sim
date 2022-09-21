@@ -5,14 +5,7 @@ import Field.Location;
 
 import java.util.List;
 
-public class Gopher {
-    private static int BREEDING_AGE = 2;
-
-    private static int MAX_AGE = 35;
-
-    private static double BREEDING_PROBABILITY = 0.089;
-
-    private static int MAX_LITTER_SIZE = 13;
+public class Gopher extends Animal{
 
     private int age;
 
@@ -22,7 +15,17 @@ public class Gopher {
 
     public Gopher(boolean startWithRandomAge)
     {
+        super(startWithRandomAge);
+        BREEDING_AGE = 2;
+
+        MAX_AGE = 35;
+
+        BREEDING_PROBABILITY = 0.089;
+
+        MAX_LITTER_SIZE = 13;
+
         age = 0;
+
         alive = true;
         if(startWithRandomAge) {
             age = (int)(Math.random()*MAX_AGE);
