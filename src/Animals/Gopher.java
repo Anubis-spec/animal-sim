@@ -33,7 +33,7 @@ public class Gopher extends Animal{
      * @param babyGopherStorage A list to add newly born rabbits to.
      */
 
-    public void run(Field updatedField, List<Gopher> babyGopherStorage)
+    public void act(Field updatedField, List<Gopher> babyGopherStorage)
     {
         incrementAge();
         if(alive) {
