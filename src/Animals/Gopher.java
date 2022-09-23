@@ -7,12 +7,6 @@ import java.util.List;
 
 public class Gopher extends Animal{
 
-    private int age;
-
-    private boolean alive;
-
-    private Location location;
-
     public Gopher(boolean startWithRandomAge)
     {
         super(startWithRandomAge);

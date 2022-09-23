@@ -1,5 +1,10 @@
 package Animals;
 
+import Field.Field;
+import Field.Location;
+
+import java.util.ArrayList;
+
 public class Animal {
     protected int BREEDING_AGE;
     protected int MAX_AGE;
@@ -7,6 +12,8 @@ public class Animal {
     protected int MAX_LITTER_SIZE;
     protected int age;
     protected boolean alive;
+
+    protected Location location;
 
     protected int RABBIT_FOOD_VALUE;
 
@@ -19,5 +26,12 @@ public class Animal {
         if(startWithRandomAge) {
             age = (int)(Math.random()*MAX_AGE);
         }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+    public void act(Field CurrentField, Field UpdatedField, ArrayList<Animal> newAnimal) {
+
     }
 }

@@ -41,6 +41,7 @@ public class Simulator {
     private ArrayList<Fox> foxList;
 
     private ArrayList<Gopher> gopherList;
+    private ArrayList<Animal> animals;
 
     // The current state of the field.
     private Field field;
@@ -87,6 +88,7 @@ public class Simulator {
         rabbitList = new ArrayList<Rabbit>();
         foxList = new ArrayList<Fox>();
         gopherList = new ArrayList<Gopher>();
+        animals = new ArrayList<Animal>();
         field = new Field(width, height);
         updatedField = new Field(width, height);
         stats = new FieldStats();
@@ -143,48 +145,19 @@ public class Simulator {
         step++;
 
         // New List to hold newborn rabbitList.
-        ArrayList<Rabbit> babyRabbitStorage = new ArrayList<Rabbit>();
+        ArrayList<Animal> newAnimals = new ArrayList<Animal>();
 
         // Loop through all Rabbits. Let each run around.
-        for (int i = 0; i < rabbitList.size(); i++) {
-            Rabbit rabbit = rabbitList.get(i);
-            rabbit.run(updatedField, babyRabbitStorage);
-            if (!rabbit.isAlive()) {
-                rabbitList.remove(i);
+        for (int i = 0; i < animals.size(); i++) {
+            Animal animal = animals.get(i);
+            animal.act(field, updatedField, newAnimals);
+            if (!animal.isAlive()) {
+                animals.remove(i);
                 i--;
             }
         }
+        animals.addAll(newAnimals);
 
-        // Add new born rabbitList to the main list of rabbitList.
-        rabbitList.addAll(babyRabbitStorage);
-
-        // Create new list for newborn foxList.
-        ArrayList<Fox> babyFoxStorage = new ArrayList<Fox>();
-
-        // Loop through Foxes; let each run around.
-        for (int i = 0; i < foxList.size(); i++) {
-            Fox fox = foxList.get(i);
-            fox.hunt(field, updatedField, babyFoxStorage);
-            if (!fox.isAlive()) {
-                foxList.remove(i);
-                i--;
-            }
-        }
-
-        // Add new born foxList to the main list of foxList.
-        foxList.addAll(babyFoxStorage);
-
-        ArrayList<Gopher> babyGopherStorage = new ArrayList<Gopher>();
-
-        for (int i = 0; i < gopherList.size(); i++) {
-            Gopher gopher = gopherList.get(i);
-            gopher.run(updatedField, babyGopherStorage);
-            if (!gopher.isAlive()) {
-                gopherList.remove(i);
-                i--;
-            }
-        }
-        gopherList.addAll(babyGopherStorage);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;

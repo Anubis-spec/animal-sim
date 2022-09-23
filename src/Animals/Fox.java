@@ -22,11 +22,6 @@ public class Fox extends Animal{
 	// Individual characteristics (attributes).
 	// -----------------------------------------------------
 	// The fox's age.
-	private int age;
-	// Whether the fox is alive or not.
-	private boolean alive;
-	// The fox's position
-	private Location location;
 	// The fox's food level, which is increased by eating rabbits.
 	private int foodLevel;
 
