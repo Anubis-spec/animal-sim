@@ -210,24 +210,22 @@ public class Simulator {
                 if (rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Fox fox = new Fox(true);
                     fox.setLocation(row, col);
-                    foxList.add(fox);
+                    animals.add(fox);
                     field.put(fox, row, col);
                 } else if (rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Rabbit rabbit = new Rabbit(true);
                     rabbit.setLocation(row, col);
-                    rabbitList.add(rabbit);
+                    animals.add(rabbit);
                     field.put(rabbit, row, col);
                 } else if (rand.nextDouble() <= GOPHER_CREATION_PROBABILITY) {
                     Gopher gopher = new Gopher(true);
                     gopher.setLocation(row, col);
-                    gopherList.add(gopher);
+                    animals.add(gopher);
                     field.put(gopher, row, col);
                 }
             }
         }
-        Collections.shuffle(rabbitList);
-        Collections.shuffle(foxList);
-        Collections.shuffle(gopherList);
+        Collections.shuffle(animals);
     }
 
     /**
