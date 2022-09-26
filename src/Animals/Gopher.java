@@ -3,6 +3,8 @@ package Animals;
 import Field.Field;
 import Field.Location;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Gopher extends Animal{
@@ -33,7 +35,7 @@ public class Gopher extends Animal{
      * @param babyGopherStorage A list to add newly born rabbits to.
      */
 
-    public void act(Field currentField, Field updatedField, List<Animal> babyGopherStorage)
+    public void act(Field currentField, Field updatedField, ArrayList<Animal> babyGopherStorage)
     {
         incrementAge();
         if(alive) {

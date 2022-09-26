@@ -4,6 +4,7 @@ import Animals.*;
 import Field.*;
 import Graph.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,12 +14,6 @@ import java.util.List;
  * @author David J. Barnes and Michael Kolling.  Modified by David Dobervich 2007-2022
  */
 public class Rabbit extends Animal{
-    private int age;
-
-    private boolean alive;
-    
-    // The rabbit's position
-    private Location location;
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -51,7 +46,7 @@ public class Rabbit extends Animal{
      * @param updatedField The field to transfer to.
      * @param babyRabbitStorage A list to add newly born rabbits to.
      */
-    public void act(Field currentField, Field updatedField, List<Animal> babyRabbitStorage)
+    public void act(Field currentField, Field updatedField, ArrayList<Animal> babyRabbitStorage)
     {
         incrementAge();
         if(alive) {

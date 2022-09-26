@@ -5,6 +5,7 @@ import Field.*;
 import Graph.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class Fox extends Animal{
 	 * @param babyFoxStorage
 	 *            A list to add newly born foxes to.
 	 */
-	public void act(Field currentField, Field updatedField, List<Animal> babyFoxStorage) {
+	public void act(Field currentField, Field updatedField, ArrayList<Animal> babyFoxStorage) {
 		incrementAge();
 		incrementHunger();
 		if (alive) {
