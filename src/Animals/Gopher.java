@@ -7,7 +7,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Gopher extends Animal{
+    private boolean isDiseased;
+
+    private double DISEASE_PROBABILITY = 0.009;
 
     public Gopher(boolean startWithRandomAge)
     {
@@ -26,6 +30,14 @@ public class Gopher extends Animal{
         if(startWithRandomAge) {
             age = (int)(Math.random()*MAX_AGE);
         }
+        if (Math.random() < DISEASE_PROBABILITY) {
+            isDiseased = true;
+        } else {
+            isDiseased = false;
+        }
+    }
+    public boolean getDiseased() {
+        return isDiseased;
     }
 
     /**

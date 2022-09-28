@@ -3,6 +3,7 @@ package Field;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import Animals.Gopher;
 import Animals.Rabbit;
 import Simulator.Simulator;
 import processing.core.*;
@@ -59,6 +60,12 @@ public class FieldDisplay {
                     if (animal instanceof Rabbit) {
                         Rabbit r = (Rabbit) animal;
                         if (r.getDiseased()) {
+                            animalColor = p.color(0,0,0);
+                        }
+                    }
+                    if (animal instanceof Gopher) {
+                        Gopher g = (Gopher) animal;
+                        if (g.getDiseased()) {
                             animalColor = p.color(0,0,0);
                         }
                     }
