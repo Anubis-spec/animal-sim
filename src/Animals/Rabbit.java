@@ -14,6 +14,9 @@ import java.util.List;
  * @author David J. Barnes and Michael Kolling.  Modified by David Dobervich 2007-2022
  */
 public class Rabbit extends Animal{
+    private boolean isDiseased;
+
+    private double DISEASE_PROBABILITY = 0.009;
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -38,6 +41,15 @@ public class Rabbit extends Animal{
         if(startWithRandomAge) {
             age = (int)(Math.random()*MAX_AGE);
         }
+        if (Math.random() < DISEASE_PROBABILITY) {
+            isDiseased = true;
+        } else {
+            isDiseased = false;
+        }
+
+    }
+    public boolean getDiseased() {
+        return isDiseased;
     }
     
     /**
